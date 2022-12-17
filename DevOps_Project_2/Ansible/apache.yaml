@@ -7,21 +7,21 @@
     ansible_ssh_private_key_file: "/etc/ansible/euran-jenkins.pem"  
     ansible_ssh_user: "ec2-user"
   tasks:
-  - name: "Install httpd and php packages"
+  - name: "Install apache2 and php packages"
     package:
         name:
-          - "httpd"
+          - "apache2"
           - "php"
         state: present
   - name: "copy code from GitHub"
     get_url:
         url: https://www.shubhammishra.in
         dest: "/var/www/html/index.php"
-  - name: "Start httpd services"
+  - name: "Start apache2 services"
     service:
-        name: httpd
+        name: apache2
         state: started
-  - name: yum Install Packages
+  - name: apt Install Packages
     apt: name={{item}} state=latest
     with_items:
        - wget
