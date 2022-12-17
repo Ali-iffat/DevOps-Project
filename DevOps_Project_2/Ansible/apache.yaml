@@ -21,8 +21,8 @@
     service:
         name: httpd
         state: started
-  - name: Yum Install Packages
-    yum: name={{item}} state=latest
+  - name: yum Install Packages
+    apt: name={{item}} state=latest
     with_items:
        - wget
   - name: terraform install
