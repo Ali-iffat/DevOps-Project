@@ -7,19 +7,19 @@
     ansible_ssh_private_key_file: "/etc/ansible/euran-jenkins.pem"  
     ansible_ssh_user: "ec2-user"
   tasks:
-  - name: "Install apache2 and php packages"
+  - name: "Install httpd and php packages"
     package:
         name:
-          - "apache2"
+          - "httpd"
           - "php"
         state: present
   - name: "copy code from GitHub"
     get_url:
         url: https://www.shubhammishra.in
         dest: "/var/www/html/index.php"
-  - name: "Start apache2 services"
+  - name: "Start httpd services"
     service:
-        name: apache2
+        name: httpd
         state: started
   - name: yum Install Packages
     yum: name={{item}} state=latest
@@ -27,6 +27,6 @@
        - wget
   - name: terraform install
     unarchive:
-      src: https://releases.hashicorp.com/terraform/0.9.1/terraform_0.9.1_linux_amd64.zip
+      src: https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_amd64.zip
       dest: /usr/bin
       remote_src: True
